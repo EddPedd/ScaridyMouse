@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47dc6b353fba1f84d80c1bc5a1fc6571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 2
+  spawnInterval: 2000
   spawnIntervalReduction: 0.5
   transform1: {fileID: 171690777}
   transform2: {fileID: 640644564}
@@ -601,9 +601,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  moveSpeed: 10
+  maxMoveVelocity: 20
   isMovingLeft: 0
   isMovingRight: 0
+  framesToMax: 5
+  framesToStop: 3
+  isBreaking: 0
 --- !u!1 &1694437342
 GameObject:
   m_ObjectHideFlags: 0
