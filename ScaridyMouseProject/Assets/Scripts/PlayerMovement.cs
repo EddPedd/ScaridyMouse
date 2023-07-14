@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("a"))
+        //Sätt kontrollera bools så att man bara kan gå ett ett håll samtidigt och 
+        if (Input.GetKey("a"))
         {
             isMovingRight = false;
             isMovingLeft = true;
@@ -27,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isMovingLeft = false;
         }
-
 
         if (Input.GetKeyDown("d"))
         {
@@ -38,17 +38,22 @@ public class PlayerMovement : MonoBehaviour
         {
             isMovingRight = false;
         }
-
-
     }
 
     void FixedUpdate () 
     {
+        if (!isMovingLeft && !isMovingRight) 
+        {
+            rb.velocity = new Vector2(0, 0);
+            return; 
+        }
+        //Beteende om man går vänster
         if (isMovingLeft)
         {
             rb.velocity = new Vector2(-moveSpeed, 0);
         }
 
+        //Beteende man går höger
         if (isMovingRight)
         {
             rb.velocity = new Vector2(moveSpeed, 0);
