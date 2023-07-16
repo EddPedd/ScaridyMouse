@@ -40,6 +40,11 @@ public class ObstacleScript : MonoBehaviour
     [Range(0f, 10f)]
     public float largeMass;
 
+    private int smallOrderInLayer = 2;
+    private int mediumOrderInLayer = 1;
+    private int largeOrderInLayer = 0;
+
+
     [SerializeField]
     private Color greenColor;
     [SerializeField]
@@ -85,22 +90,27 @@ public class ObstacleScript : MonoBehaviour
                 break;
         }
 
-        //Decide sieze and mass with scriptable object
+        //Decide sieze with scriptable object
         switch (sieze)
         {
             case Obstacle.Sieze.Small:
                 transform.localScale = new Vector3(smallScale, smallScale,1f);
                 rb.mass = smallMass;
+                sprite.sortingOrder = smallOrderInLayer;
                 break;
 
             case Obstacle.Sieze.Medium:
                 transform.localScale = new Vector3(mediumScale, mediumScale, 1f);
                 rb.mass = mediumMass;
+                sprite.sortingOrder = mediumOrderInLayer;
+
                 break;
 
             case Obstacle.Sieze.Large:
                 transform.localScale = new Vector3(largeScale, largeScale, 1f);
                 rb.mass = largeMass;
+                sprite.sortingOrder = largeOrderInLayer;
+
                 break;
         }
 
