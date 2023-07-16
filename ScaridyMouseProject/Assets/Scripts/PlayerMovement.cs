@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     //Movement variables
+    [Range(0,50)]
     public float maxMoveVelocity;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;

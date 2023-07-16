@@ -13,7 +13,8 @@ public class SpawnerScript : MonoBehaviour
     public Transform transform5;
 
     public Vector3 spawnOffSet = new Vector3(0f, 0f, 0f);
-    public GameObject ballObstacle1;
+    [SerializeField]
+    public GameObject redLargeCircle;
     
     
     // Start is called before the first frame update
@@ -42,15 +43,15 @@ public class SpawnerScript : MonoBehaviour
 
         if(randomSpawn == 0)
         {
-            Instantiate(ballObstacle1, transform1.position+spawnOffSet, transform1.rotation);
+            Instantiate(redLargeCircle, transform1.position+spawnOffSet, transform1.rotation);
         }
         if (randomSpawn == 1)
         {
-            Instantiate(ballObstacle1, transform2.position + spawnOffSet, transform2.rotation);
+            Instantiate(redLargeCircle, transform2.position + spawnOffSet, transform2.rotation);
         }
         if (randomSpawn == 2)
         {
-            Instantiate(ballObstacle1, transform3.position + spawnOffSet, transform3.rotation);
+            Instantiate(redLargeCircle, transform3.position + spawnOffSet, transform3.rotation);
         }
     }
 

@@ -4,16 +4,49 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour
 {
-    public Obstacle obstacle;
+    public Obstacle obstacle; //Scriptable Object
 
-    public GameManagerScript manager;
-
-    public float lifeTime = 10f;
-    public float life = 0f;
-
+    //Refernces to components
     [SerializeField]
     private SpriteRenderer sprite;
-    
+    [SerializeField]
+    private Rigidbody2D rb;
+    [SerializeField]
+    private GameManagerScript manager;
+
+    //Refernces to prefabs
+    [SerializeField]
+    private Sprite squareSprite;
+    [SerializeField]
+    private Sprite triangleSprite;
+    [SerializeField]
+    private Sprite circleSprite;
+
+    //Variables
+    public float lifeTime = 10f;
+    private float life = 0f;
+
+    [Range(0f, 10f)]
+    public float smallScale;
+    [Range(0f, 10f)]
+    public float mediumScale;
+    [Range(0f, 10f)]
+    public float largeScale;
+
+    [Range(0f, 10f)]
+    public float smallMass;
+    [Range(0f, 10f)]
+    public float mediumMass;
+    [Range(0f, 10f)]
+    public float largeMass;
+
+    [SerializeField]
+    private Color greenColor;
+    [SerializeField]
+    private Color blueColor;
+    [SerializeField]
+    private Color redColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,29 +54,67 @@ public class ObstacleScript : MonoBehaviour
 
         //Set references
         sprite = GetComponent<SpriteRenderer>();
-        GameObject gameManager = GameObject.FindWithTag("Manager");
+        rb = GetComponent<Rigidbody2D>();
 
+        GameObject gameManager = GameObject.FindWithTag("Manager");
         if (gameManager != null)
         {
             manager = gameManager.GetComponent<GameManagerScript>();
         }
 
         Debug.Log("A " + obstacle.name + " has been instatiated in the game"); //Debug for Scriptable Object
-        
         //Decide references to Scriptable Object
         Obstacle.Shape shape = obstacle.shape;
         Obstacle.Sieze sieze = obstacle.sieze;
         Obstacle.Colour colour = obstacle.colour;
         Debug.Log("shape = " + obstacle.shape + ", sieze = " + obstacle.sieze + " and colour = " + obstacle.colour); //Debug the references
 
-        //Decide sieze with scriptable Object
+        //Decide shape with scriptable Object
         switch (shape)
         {
             case Obstacle.Shape.Square:
-                //OBSOBSOBS fortsätt här!!!
-                //Skapa public referenser till förbestämda sprites som du sen kan besäma utifrån datan i scriptable objectet
-                Debug.Log(Obstacle.Shape.Square); 
-                break;    
+                sprite.sprite = squareSprite;
+                break;
+
+            case Obstacle.Shape.Triangle:
+                sprite.sprite = triangleSprite;
+                break;
+            
+            case Obstacle.Shape.Circle:
+                sprite.sprite = circleSprite;
+                break;
+        }
+
+        //Decide sieze and mass with scriptable object
+        switch (sieze)
+        {
+            case Obstacle.Sieze.Small:
+                transform.localScale = new Vector3(smallScale, smallScale,1f);
+                rb.mass = smallMass;
+                break;
+
+            case Obstacle.Sieze.Medium:
+                transform.localScale = new Vector3(mediumScale, mediumScale, 1f);
+                rb.mass = mediumMass;
+                break;
+
+            case Obstacle.Sieze.Large:
+                transform.localScale = new Vector3(largeScale, largeScale, 1f);
+                rb.mass = largeMass;
+                break;
+        }
+
+        //Decide Colour of scriptable object
+        switch (colour)
+        {
+            case Obstacle.Colour.Green:
+                sprite.color = greenColor; break;
+
+            case Obstacle.Colour.Blue:
+                sprite.color = blueColor; break;
+
+            case Obstacle.Colour.Red:
+                sprite.color = redColor; break;
         }
     }
 
