@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     //Movement variables
     [Range(0,50)]
     public float maxMoveVelocity;
-    public bool isMovingLeft = false;
-    public bool isMovingRight = false;
+    private bool isMovingLeft = false;
+    private bool isMovingRight = false;
     [Range(1, 50)]
     [SerializeField]
     private int framesToMax = 3;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     //Breaking variables
     [Range (1, 50)]   [SerializeField]
     private int framesToStop = 3;
-    public bool isBreaking = false;
+    private bool isBreaking = false;
     private float velocityBeforeBreak;
     private float breakPerFrame;
 

@@ -24,12 +24,6 @@ public class SpawnerScript : MonoBehaviour
         InvokeRepeating("ReduceInterval", 10, 10);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ReduceInterval()
     {
         spawnInterval -= spawnIntervalReduction;
@@ -54,5 +48,13 @@ public class SpawnerScript : MonoBehaviour
             Instantiate(redLargeCircle, transform3.position + spawnOffSet, transform3.rotation);
         }
     }
+
+    //Nummer mellan ett och tre för vilken sida som hinder ska skapas på, delvis utifrån spelaren position
+    //Nummer 
+
+
+
+
+
 
 }
