@@ -540,7 +540,7 @@ MonoBehaviour:
   leftSpawn: {fileID: 2087617379}
   rightSpawn: {fileID: 1873306125}
   upperSpawn: {fileID: 640644564}
-  obstacleFrequency: 1
+  obstacleFrequency: 300
 --- !u!4 &580991758
 Transform:
   m_ObjectHideFlags: 0
@@ -639,8 +639,9 @@ MonoBehaviour:
   maxMoveVelocity: 15
   framesToMax: 5
   framesToStop: 3
-  skipDuration: 0.48
-  skipForce: 25.3
+  skipForce: 50
+  skipDuration: 10
+  cancelDuration: 20
 --- !u!1 &1873306124
 GameObject:
   m_ObjectHideFlags: 0
