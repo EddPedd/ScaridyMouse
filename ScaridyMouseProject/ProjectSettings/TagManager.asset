@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - Despawner
   - Manager
+  - Skip
   layers:
   - Default
   - TransparentFX

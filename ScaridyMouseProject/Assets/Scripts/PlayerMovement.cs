@@ -234,4 +234,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+    //Method for Power-Up objects to run on trigger
+    public void PickUp(int power)   //int for what power-up was picked up
+    {
+        //spela animationer och ljud
+        //Ändra färg på sprite?
+
+        if (power == 1)  //1 = Skip Power-Up
+        {
+            canSkip = true;
+        }
+
+    }
 }
