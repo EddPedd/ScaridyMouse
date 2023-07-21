@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //References to components
     public Rigidbody2D rb;
+    
 
     //Movement variables
     [Range(0,50)]

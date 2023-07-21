@@ -7,7 +7,7 @@ public class GameManagerScript : MonoBehaviour
 {
     public GameObject player;
     public GameObject menu;
-    public GameObject scoreText;
+    public GameObject inGameUI;
     public GameObject spawner;
     [SerializeField]
     public float scoreTime; //Score time to send to UI
@@ -29,7 +29,7 @@ public class GameManagerScript : MonoBehaviour
     public void Play()
     {
         menu.SetActive(false);
-        scoreText.SetActive(true);
+        inGameUI.SetActive(true);
         spawner.SetActive(true );
         trackingScore = true;
     }
@@ -38,7 +38,7 @@ public class GameManagerScript : MonoBehaviour
     {
         spawner.SetActive(false ); //Sort of a pause for now
         menu.SetActive(true);
-        scoreText.SetActive(false);
+        inGameUI.SetActive(false);
         trackingScore=false;
 
         //Add some sort of pause to the game so that the spawner stops and resets
