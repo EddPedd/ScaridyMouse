@@ -22,7 +22,7 @@ public class PowerUpSpawnerScript : MonoBehaviour
 
     private void SpawnSkip()
     {
-        float offSetVolume = Random.Range(4f, 10f);
+        float offSetVolume = Random.Range(-10f, 10f);
         Vector3 offSet = new Vector3(offSetVolume, 0,0);
         Instantiate(skip, upperSpawn.position + offSet, upperSpawn.rotation);
     }
