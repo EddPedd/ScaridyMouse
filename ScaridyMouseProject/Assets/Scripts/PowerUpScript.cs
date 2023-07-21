@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class PowerUpScript : MonoBehaviour
 {
+    //References
     [SerializeField]
     private PlayerMovement player;
     private GameObject playerPlayer;
+
+    //Variables
     [SerializeField]
     private int powerInt;
-    // Start is called before the first frame update
+    [SerializeField]
+    private float lifeTime = 6;
+    private float timeSpentLive;
+
     void Start()
     {
         playerPlayer = GameObject.FindWithTag("Player");
@@ -24,6 +30,12 @@ public class PowerUpScript : MonoBehaviour
 
     void Update()
     {
+
+        timeSpentLive += Time.deltaTime;
+        if (timeSpentLive >= lifeTime)
+        {
+            GameObject.Destroy(gameObject);
+        }
         //Lägg till förändring av animationer 
     }
 

@@ -23,7 +23,7 @@ public class ObstacleScript : MonoBehaviour
     private Sprite circleSprite;
 
     //Variables
-    public float lifeTime = 10f;
+    public float lifeTime = 5f;
     private float life = 0f;
 
     [Range(0f, 10f)]
@@ -66,6 +66,8 @@ public class ObstacleScript : MonoBehaviour
         {
             manager = gameManager.GetComponent<GameManagerScript>();
         }
+
+        gameObject.tag = "Obstacle";
 
         Debug.Log("A " + obstacle.name + " has been instatiated in the game"); //Debug for Scriptable Object
         //Decide references to Scriptable Object
