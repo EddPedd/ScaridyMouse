@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PowerUpScript : MonoBehaviour
 {
+    [SerializeField]
     private PlayerMovement player;
     private GameObject playerPlayer;
+    [SerializeField]
     private int powerInt;
     // Start is called before the first frame update
     void Start()
@@ -13,7 +15,7 @@ public class PowerUpScript : MonoBehaviour
         playerPlayer = GameObject.FindWithTag("Player");
         player = playerPlayer.GetComponent<PlayerMovement>();
 
-        if (gameObject.name == "SkipPowerUp")
+        if (gameObject.name == "SkipPowerUp(Clone)")
         {
             powerInt =1;
         }

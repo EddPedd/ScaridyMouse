@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float breakPerFrame;
 
     //Skip variables
+    [SerializeField]
     private bool canSkip = false;
     private bool isSkipping = false;
     private bool cancelingSkipping;
