@@ -6,12 +6,19 @@ using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject player;
+    public PlayerMovement playerM;
     public GameObject menu;
     public GameObject inGameUI;
     public GameObject spawner;
     [SerializeField]
     public float scoreTime; //Score time to send to UI
     private bool trackingScore = true;
+    
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+        playerM = player.GetComponent<PlayerMovement>();
+    }
     
     void Update()
     {
@@ -43,7 +50,6 @@ public class GameManagerScript : MonoBehaviour
 
         //Add some sort of pause to the game so that the spawner stops and resets
     }
-
 
     public void RestartGame()
     {

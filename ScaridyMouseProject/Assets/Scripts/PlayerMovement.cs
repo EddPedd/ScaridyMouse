@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //References to components
-    public Rigidbody2D rb;
-    
+    private Rigidbody2D rb;
+    private GameObject healthBarObject;
+    public HealthBarScript healthBar;
 
     //Movement variables
     [Range(0,50)]
@@ -42,12 +43,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     [Range(1, 30)]
     private int cancelDuration;
-    
 
-    // Start is called before the first frame update
+    //Health varialbes
+    private int maxHealth = 2;
+    public int currentHealth;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        healthBarObject = GameObject.FindWithTag("HealthBar");
+        if (healthBarObject != null)
+        {
+            healthBar = healthBarObject.GetComponent<HealthBarScript>();
+        }
+        currentHealth = 1;  //Begin the game with only one health
+        
     }
 
     // Update is called once per frame
@@ -71,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
             Skip(); //Add force, play animations/Sounds mm
 
-            skipFrames = 0; 
+            skipFrames = 0; //reset the counted frames
         }
 
         if (isSkipping) //Movement after skipping
@@ -157,6 +168,14 @@ public class PlayerMovement : MonoBehaviour
             float unclampedAcceleration = rb.velocity.x + velocityPerFrame; //Add to move right
 
             rb.velocity = new Vector2(Mathf.Clamp(unclampedAcceleration, velocityBeforeSpeed,maxMoveVelocity ), rb.velocity.y);
+        }
+    }
+
+    void OnTriggerEnter2D (Collider2D collider)
+    {
+        if (collider.CompareTag("Obstacle"))
+        {
+            GainHealth(-1); //-1 for losing 1 health
         }
     }
 
@@ -247,6 +266,14 @@ public class PlayerMovement : MonoBehaviour
         {
             canSkip = true;
         }
+
+    }
+
+    public void GainHealth(int healthGain)
+    {
+        Debug.Log("Player gained health and sent information to " + healthBarObject.name);
+        currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);
+        healthBar.UpdateHealthBar();
 
     }
 }
