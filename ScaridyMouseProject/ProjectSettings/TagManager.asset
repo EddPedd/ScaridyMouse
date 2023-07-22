@@ -8,6 +8,7 @@ TagManager:
   - Despawner
   - Manager
   - Skip
+  - HealthBar
   layers:
   - Default
   - TransparentFX
