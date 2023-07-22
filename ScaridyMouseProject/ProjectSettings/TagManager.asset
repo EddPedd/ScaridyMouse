@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - Despawner
   - Manager
+  - Skip
+  - HealthBar
   layers:
   - Default
   - TransparentFX
