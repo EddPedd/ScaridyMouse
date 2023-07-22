@@ -40,7 +40,7 @@ public class HealthBarScript : MonoBehaviour
     public void UpdateHealthBar()
     {
         playerHealth = player.currentHealth;
-        Debug.Log(playerHealth);
+        Debug.Log("After updating the healthbar in the HealthBarScript, playerHealth = " + playerHealth);
         if (playerHealth <= 0 )
         {
             Debug.Log("HealthBarScript restarted the game");
@@ -49,6 +49,7 @@ public class HealthBarScript : MonoBehaviour
         else if (playerHealth == 1)
         {
             heart2.SetActive(false);
+
         }
         else if (playerHealth == 2)
         {
