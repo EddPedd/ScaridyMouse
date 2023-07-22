@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     //References to components
     private Rigidbody2D rb;
+    private GameObject gManager;
+    private GameManagerScript manager;
     private GameObject healthBarObject;
     public HealthBarScript healthBar;
 
@@ -52,13 +54,18 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        //Decide health and get relevant references
         healthBarObject = GameObject.FindWithTag("HealthBar");
         if (healthBarObject != null)
         {
             healthBar = healthBarObject.GetComponent<HealthBarScript>();
         }
         currentHealth = 1;  //Begin the game with only one health
-        
+
+        //Get the manager
+        gManager = GameObject.FindWithTag("Manager");
+        manager = gManager.GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -275,5 +282,10 @@ public class PlayerMovement : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);
         healthBar.UpdateHealthBar();
 
+        if ( currentHealth <= 0 )
+        {
+            Debug.Log("Restarting the game from PlayerMovement because current health reached " + currentHealth);
+            manager.RestartGame();
+        }
     }
 }

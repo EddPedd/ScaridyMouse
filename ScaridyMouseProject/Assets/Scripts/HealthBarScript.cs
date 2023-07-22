@@ -44,7 +44,6 @@ public class HealthBarScript : MonoBehaviour
         if (playerHealth <= 0 )
         {
             Debug.Log("HealthBarScript restarted the game");
-            gManager.RestartGame(); 
         }
         else if (playerHealth == 1)
         {

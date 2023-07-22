@@ -139,12 +139,4 @@ public class ObstacleScript : MonoBehaviour
             GameObject.Destroy(gameObject);
         }
     }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.CompareTag("Player"))
-        {
-            manager.RestartGame();
-        }
-    }
 }
