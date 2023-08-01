@@ -44,15 +44,19 @@ public class HealthBarScript : MonoBehaviour
         if (playerHealth <= 0 )
         {
             Debug.Log("HealthBarScript restarted the game");
+            AudioManagerScript.instance.Stop("HeartBeat");
+
         }
         else if (playerHealth == 1)
         {
             heart2.SetActive(false);
+            AudioManagerScript.instance.Play("HeartBeat");
 
         }
         else if (playerHealth == 2)
         {
             heart2.SetActive(true);
+            AudioManagerScript.instance.Stop("HeartBeat");
         }
     }
 }

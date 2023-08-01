@@ -39,6 +39,7 @@ public class GameManagerScript : MonoBehaviour
         inGameUI.SetActive(true);
         spawner.SetActive(true );
         trackingScore = true;
+        AudioManagerScript.instance.Play("Laughter");
     }
 
     public void OpenMenu()

@@ -183,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
         if (collider.CompareTag("Obstacle"))
         {
             GainHealth(-1); //-1 for losing 1 health
+            
         }
     }
 
@@ -281,6 +282,16 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Player gained health and sent information to " + healthBarObject.name);
         currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);
         healthBar.UpdateHealthBar();
+
+        if (healthGain > 0)
+        {
+            AudioManagerScript.instance.Play("SmallHit");
+
+        }
+        else
+        {
+            AudioManagerScript.instance.Play("BigHit");
+        }
 
         if ( currentHealth <= 0 )
         {
