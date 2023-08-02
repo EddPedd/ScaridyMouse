@@ -195,7 +195,6 @@ public class PlayerMovement : MonoBehaviour
         breakPerFrame = velocityBeforeBreak / framesToStop;
 
         Debug.Log("breakPerFrame = " + breakPerFrame);
-
     }
 
     private void StartRunningLeft()
@@ -240,6 +239,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.AddForce(skipDirection * skipForce, ForceMode2D.Impulse);
+
+        AudioManagerScript.instance.Play("Skip");
     }
 
     private void CheckIfWalking()

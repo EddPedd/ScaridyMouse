@@ -9,6 +9,7 @@ TagManager:
   - Manager
   - Skip
   - HealthBar
+  - Floor
   layers:
   - Default
   - TransparentFX

@@ -130,13 +130,11 @@ public class ObstacleScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Bounce()
     {
-        life += Time.deltaTime;
-        if (life >=lifeTime)
-        {
-            GameObject.Destroy(gameObject);
-        }
+        AudioManagerScript.instance.Play("ObstacleDestroy");
+
+        GameObject.Destroy(gameObject);
     }
+
 }

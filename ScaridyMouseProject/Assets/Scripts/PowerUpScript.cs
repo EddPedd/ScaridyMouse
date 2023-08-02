@@ -44,6 +44,7 @@ public class PowerUpScript : MonoBehaviour
         if (collider.CompareTag("Player"))
         {
             player.PickUp(powerInt);
+            AudioManagerScript.instance.Play("PickUp");
             PickedUp();
         }
     }
