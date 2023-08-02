@@ -20,6 +20,8 @@ public class DespawnerScript : MonoBehaviour
     {
         if (collider.CompareTag("Obstacle"))
         {
+            AudioManagerScript.instance.Play("ObstacleDestroy");
+
             GameObject.Destroy(collider.gameObject);    
         }
     }
