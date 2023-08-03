@@ -840,7 +840,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ObstacleDestroy
     clip: {fileID: 8300000, guid: fba2216e0a1ea9649b19647df40e3c02, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     loop: 0
     isPlaying: 0

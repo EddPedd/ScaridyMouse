@@ -23,9 +23,6 @@ public class ObstacleScript : MonoBehaviour
     private Sprite circleSprite;
 
     //Variables
-    public float lifeTime = 5f;
-    private float life = 0f;
-
     [Range(0f, 10f)]
     public float smallScale;
     [Range(0f, 10f)]
