@@ -23,33 +23,50 @@ public class ObstacleScript : MonoBehaviour
     private Sprite circleSprite;
 
     //Variables
-    [Range(0f, 10f)]
-    public float smallScale;
-    [Range(0f, 10f)]
-    public float mediumScale;
-    [Range(0f, 10f)]
-    public float largeScale;
+    private bool hasPopped = false; //For bounce animation
+    [SerializeField]
+    [Range(0f, 2f)]
+    private float bounceTime = 0.5f; 
+    private float elapsedBounceTime;
+    [SerializeField]
+    private AnimationCurve bounceCurve;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float bouncePoPScale = .2f;
+    private Vector3 startScale;
+    private Vector3 finalPopScale;
 
+    [SerializeField]
     [Range(0f, 10f)]
-    public float smallMass;
+    private float smallScale; //Scale
+    [SerializeField]
     [Range(0f, 10f)]
-    public float mediumMass;
+    private float mediumScale;
+    [SerializeField]
     [Range(0f, 10f)]
-    public float largeMass;
+    private float largeScale;
 
-    private int smallOrderInLayer = 2;
+    [SerializeField]
+    [Range(0f, 10f)]
+    private float smallMass;    //Mass
+    [SerializeField]
+    [Range(0f, 10f)]
+    private float mediumMass;
+    [SerializeField]
+    [Range(0f, 10f)]
+    private float largeMass;
+
+    private int smallOrderInLayer = 2;  //Render layer
     private int mediumOrderInLayer = 1;
     private int largeOrderInLayer = 0;
 
-
     [SerializeField]
-    private Color greenColor;
+    private Color greenColor;   //Sprites
     [SerializeField]
     private Color blueColor;
     [SerializeField]
     private Color redColor;
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log(gameObject.name + " has been instantiated to the scene."); //Debug what has been instatiated
@@ -127,11 +144,33 @@ public class ObstacleScript : MonoBehaviour
         }
     }
 
-    public void Bounce()
+    void Update()
     {
-        AudioManagerScript.instance.Play("ObstacleDestroy");
+        if(hasPopped)
+        {
+            elapsedBounceTime += Time.deltaTime;    //Calculate time from start
+            float percentageComplete = elapsedBounceTime / bounceTime;  //Calculate how far along the "animation" is
 
-        GameObject.Destroy(gameObject);
+            if (percentageComplete >= 1)    //If the pop is completed - destroy gameObject
+            {
+                GameObject.Destroy(gameObject);
+            }
+            else
+            {
+                float scaleMultiplier = bounceCurve.Evaluate(percentageComplete);    //else calculate the curve and change the scale for a pop effect
+                transform.localScale = Vector3.Lerp(startScale, finalPopScale, percentageComplete);
+            }
+        }
+    }
+
+    public void Bounce()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
+    {
+        AudioManagerScript.instance.Play("ObstacleDestroy");    //Play sound
+
+        elapsedBounceTime = 0;  //Decide current time and scale
+        startScale = transform.localScale;
+
+        finalPopScale = startScale + new Vector3(bouncePoPScale, bouncePoPScale, 0);    //Decide wanted final pop-scale
     }
 
 }
