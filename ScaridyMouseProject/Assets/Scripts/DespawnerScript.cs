@@ -16,13 +16,4 @@ public class DespawnerScript : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D (Collider2D collider)
-    {
-        if (collider.CompareTag("Obstacle"))
-        {
-            AudioManagerScript.instance.Play("ObstacleDestroy");
-
-            GameObject.Destroy(collider.gameObject);    
-        }
-    }
 }
