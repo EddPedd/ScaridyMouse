@@ -12,7 +12,7 @@ public class FloorScript : MonoBehaviour
         {
             obstacle = collider.GetComponent<ObstacleScript>();
 
-            obstacle.Bounce();
+            obstacle.Pop();
         }
     }
 

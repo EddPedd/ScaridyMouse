@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class ObstacleManagerScript : MonoBehaviour
 {
-   //List of all possible obstacles named in a systemic way 
+    //Variables for obstacles
+    public AnimationCurve popCurve;  //bounceAnimation
+    [Range(0f, 2f)]
+    public float popTime = 0.5f;
+    [Range(0f, 1f)]
+    public float popScale = .2f;
+
+
+
+    //List of all possible obstacles named in a systemic way 
     public GameObject GSC;
     
     public GameObject GMC;
@@ -59,15 +68,4 @@ public class ObstacleManagerScript : MonoBehaviour
     
     public GameObject RLT;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

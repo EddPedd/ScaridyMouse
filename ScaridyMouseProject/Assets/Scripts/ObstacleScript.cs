@@ -11,8 +11,11 @@ public class ObstacleScript : MonoBehaviour
     private SpriteRenderer sprite;
     [SerializeField]
     private Rigidbody2D rb;
+    private Collider2D colliderCollider;
     [SerializeField]
     private GameManagerScript manager;
+    [SerializeField]
+    private ObstacleManagerScript oManager;
 
     //Refernces to prefabs
     [SerializeField]
@@ -24,17 +27,10 @@ public class ObstacleScript : MonoBehaviour
 
     //Variables
     private bool hasPopped = false; //For bounce animation
-    [SerializeField]
-    [Range(0f, 2f)]
-    private float bounceTime = 0.5f; 
-    private float elapsedBounceTime;
-    [SerializeField]
-    private AnimationCurve bounceCurve;
-    [SerializeField]
-    [Range(0f, 1f)]
-    private float bouncePoPScale = .2f;
+    private float elapsedPopTime;
     private Vector3 startScale;
     private Vector3 finalPopScale;
+    private Color startColor;
 
     [SerializeField]
     [Range(0f, 10f)]
@@ -61,7 +57,7 @@ public class ObstacleScript : MonoBehaviour
     private int largeOrderInLayer = 0;
 
     [SerializeField]
-    private Color greenColor;   //Sprites
+    private Color greenColor;   //Colors
     [SerializeField]
     private Color blueColor;
     [SerializeField]
@@ -74,11 +70,13 @@ public class ObstacleScript : MonoBehaviour
         //Set references
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        colliderCollider = GetComponent<Collider2D>();
 
         GameObject gameManager = GameObject.FindWithTag("Manager");
         if (gameManager != null)
         {
             manager = gameManager.GetComponent<GameManagerScript>();
+            oManager = gameManager.GetComponent<ObstacleManagerScript>();
         }
 
         gameObject.tag = "Obstacle";
@@ -148,29 +146,39 @@ public class ObstacleScript : MonoBehaviour
     {
         if(hasPopped)
         {
-            elapsedBounceTime += Time.deltaTime;    //Calculate time from start
-            float percentageComplete = elapsedBounceTime / bounceTime;  //Calculate how far along the "animation" is
+            elapsedPopTime += Time.deltaTime;    //Calculate time from start
+            float percentageComplete = elapsedPopTime / oManager.popTime;  //Calculate how far along the "animation" is
 
             if (percentageComplete >= 1)    //If the pop is completed - destroy gameObject
             {
                 GameObject.Destroy(gameObject);
+                return;
             }
             else
             {
-                float scaleMultiplier = bounceCurve.Evaluate(percentageComplete);    //else calculate the curve and change the scale for a pop effect
-                transform.localScale = Vector3.Lerp(startScale, finalPopScale, percentageComplete);
+                float scaleMultiplier = oManager.popCurve.Evaluate(percentageComplete);    //else calculate the curve and change the scale for a pop effect
+                transform.localScale = Vector3.Lerp(startScale, finalPopScale, scaleMultiplier);
+                sprite.color = Color.Lerp(startColor, Color.white, scaleMultiplier);
             }
         }
     }
 
-    public void Bounce()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
+    public void Pop()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
     {
         AudioManagerScript.instance.Play("ObstacleDestroy");    //Play sound
 
-        elapsedBounceTime = 0;  //Decide current time and scale
+        elapsedPopTime = 0;  //Decide current time and scale
         startScale = transform.localScale;
+        startColor = sprite.color;
 
-        finalPopScale = startScale + new Vector3(bouncePoPScale, bouncePoPScale, 0);    //Decide wanted final pop-scale
+        finalPopScale = startScale + new Vector3(oManager.popScale, oManager.popScale, 0);    //Decide wanted final pop-scale from ObstacelManager
+        
+        rb.velocity = new Vector3(0, 0, 0);
+        rb.isKinematic = true;  //Stop the obstacles movement and remove the RigidBody component
+
+        colliderCollider.enabled = false;
+
+        hasPopped = true;
     }
 
 }

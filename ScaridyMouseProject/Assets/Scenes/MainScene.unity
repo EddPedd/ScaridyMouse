@@ -480,6 +480,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff7a88aaea60c143ad37b4893b3cb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.00076924264
+      value: 0.05895126
+      inSlope: 0.023497818
+      outSlope: 0.023497818
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75839275
+      value: 0.17863677
+      inSlope: 0.999338
+      outSlope: 0.999338
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18170357
+      outWeight: 0.23924944
+    - serializedVersion: 3
+      time: 0.9424187
+      value: 0.7063397
+      inSlope: 4.9604115
+      outSlope: 4.9604115
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.0954319
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 5.099924
+      outSlope: 5.099924
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  popTime: 0.2
+  popScale: 1
   GSC: {fileID: 7785102025019218341, guid: 27becab2e9be4f141809be54babcb522, type: 3}
   GMC: {fileID: 7785102025019218341, guid: 824ff6790464d324297fd671d1d6ba9a, type: 3}
   GLC: {fileID: 7785102025019218341, guid: 6d51d548a489cb8488f0d38d50bc7c8d, type: 3}
