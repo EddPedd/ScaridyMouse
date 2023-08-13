@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class ObstacleScript : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class ObstacleScript : MonoBehaviour
     private Vector3 startScale;
     private Vector3 finalPopScale;
     private Color startColor;
+
+    private float largeRoughness;   //For large obstacles camera shake
+    private float largeMagnitude;
+    private float largeDuration;
 
     [SerializeField]
     [Range(0f, 10f)]
@@ -65,7 +70,7 @@ public class ObstacleScript : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(gameObject.name + " has been instantiated to the scene."); //Debug what has been instatiated
+        // Debug.Log(gameObject.name + " has been instantiated to the scene."); //Debug what has been instatiated
 
         //Set references
         sprite = GetComponent<SpriteRenderer>();
@@ -81,12 +86,17 @@ public class ObstacleScript : MonoBehaviour
 
         gameObject.tag = "Obstacle";
 
-        Debug.Log("A " + obstacle.name + " has been instatiated in the game"); //Debug for Scriptable Object
+        //Decide varialbes from obstacleManager
+        largeDuration = oManager.largeShakeDuration;
+        largeMagnitude = oManager.largeShakeMagnitude;
+        largeRoughness = oManager.largeShakeRoughness;
+
+        //Debug.Log("A " + obstacle.name + " has been instatiated in the game"); //Debug for Scriptable Object
         //Decide references to Scriptable Object
         Obstacle.Shape shape = obstacle.shape;
         Obstacle.Sieze sieze = obstacle.sieze;
         Obstacle.Colour colour = obstacle.colour;
-        Debug.Log("shape = " + obstacle.shape + ", sieze = " + obstacle.sieze + " and colour = " + obstacle.colour); //Debug the references
+        //Debug.Log("shape = " + obstacle.shape + ", sieze = " + obstacle.sieze + " and colour = " + obstacle.colour); //Debug the references
 
         //Decide shape with scriptable Object
         switch (shape)
@@ -167,6 +177,13 @@ public class ObstacleScript : MonoBehaviour
     {
         AudioManagerScript.instance.Play("ObstacleDestroy");    //Play sound
 
+        switch (obstacle.sieze){
+           case Obstacle.Sieze.Large:
+                CameraShaker.Instance.ShakeOnce(largeMagnitude,largeRoughness,largeDuration,largeDuration);
+                break;
+
+        }
+ 
         elapsedPopTime = 0;  //Decide current time and scale
         startScale = transform.localScale;
         startColor = sprite.color;

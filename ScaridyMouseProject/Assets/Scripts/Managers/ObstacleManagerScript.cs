@@ -11,7 +11,10 @@ public class ObstacleManagerScript : MonoBehaviour
     [Range(0f, 1f)]
     public float popScale = .2f;
 
-
+    public float largeShakeMagnitude; 
+    public float largeShakeRoughness;
+    [Range(0f, 2f)]
+    public float largeShakeDuration;
 
     //List of all possible obstacles named in a systemic way 
     public GameObject GSC;

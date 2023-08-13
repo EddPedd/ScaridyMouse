@@ -140,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate () 
     {
-
         //Beteende om man bromsar
         if (isBreaking) 
         {
