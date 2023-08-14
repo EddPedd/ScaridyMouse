@@ -59,3 +59,6 @@ TagManager:
   - name: Obstacles
     uniqueID: 3888564203
     locked: 0
+  - name: TransitionImage
+    uniqueID: 1731130159
+    locked: 0
