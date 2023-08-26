@@ -8,7 +8,11 @@ public class TransitionScript : MonoBehaviour
     private GameObject gameManager;
     private GameManagerScript manager;
     
+    //Static Variables
+    public static TransitionScript instance;
+
     //Variables
+    private bool hasTransitioned = false;
     private float startPosition;
     private float middleOfScreen = 0f;
     [SerializeField]
@@ -21,6 +25,16 @@ public class TransitionScript : MonoBehaviour
     private float transitionTime;
     private float currentPosition;
     
+   void Awake(){
+    if(instance == null ){
+        instance=this;
+    }
+    else{
+        GameObject.Destroy(gameObject  );
+    }
+
+    DontDestroyOnLoad(gameObject);
+   }
 
     void Start()
     {
@@ -31,15 +45,21 @@ public class TransitionScript : MonoBehaviour
 
         //transform.position = new Vector3 (0f, startPosition, 0f);   //Make sure hat the image is centered on x and z axis
 
-        if(startPosition > 1  ){      
-            endPosition = middleOfScreen;   //Else it remains as the predetermined value of (0f, -16, 0f)
-        }  
+        //if(startPosition > 1  ){      
+       //     endPosition = middleOfScreen;   //Else it remains as the predetermined value of (0f, -16, 0f)
+       // }  
 
         Debug.Log(gameObject.name + "starts at the y position " + startPosition + " and is going to teh y position " + endPosition);             
     }
 
     void Update()
     {
+        if(transform.position.y <= 0f && hasTransitioned == false){
+            hasTransitioned = true;
+            manager.LoadNextScene();
+        }
+        
+        
         transitionTime += Time.deltaTime;
         percentageComplete = transitionTime / transitionDuration;
         float curveMultiplier = curve.Evaluate(percentageComplete);
@@ -50,7 +70,8 @@ public class TransitionScript : MonoBehaviour
                 return;
             }   
             else{                   //Else (If the transitionImage is in the middle of the screen) load the next scene
-                manager.LoadNextScene();
+                //manager.LoadNextScene();    //OBS!! Load the next scene here if not using a "dontDestroyOnLoad" method and an instance
+                GameObject.Destroy(gameObject);
                 return;
             }               
         }
