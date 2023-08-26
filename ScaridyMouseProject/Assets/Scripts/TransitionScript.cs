@@ -13,8 +13,9 @@ public class TransitionScript : MonoBehaviour
 
     //Variables
     private bool hasTransitioned = false;
+    private float timeOffSet = 2f;
+    private bool isTransitioning = false;
     private float startPosition;
-    private float middleOfScreen = 0f;
     [SerializeField]
     private float endPosition = -16f;
     [SerializeField]
@@ -34,6 +35,7 @@ public class TransitionScript : MonoBehaviour
     }
 
     DontDestroyOnLoad(gameObject);
+    return; 
    }
 
     void Start()
@@ -46,10 +48,12 @@ public class TransitionScript : MonoBehaviour
         //transform.position = new Vector3 (0f, startPosition, 0f);   //Make sure hat the image is centered on x and z axis
 
         //if(startPosition > 1  ){      
-       //     endPosition = middleOfScreen;   //Else it remains as the predetermined value of (0f, -16, 0f)
-       // }  
+        //     endPosition = middleOfScreen;   //Else it remains as the predetermined value of (0f, -16, 0f)
+        // }  
 
-        Debug.Log(gameObject.name + "starts at the y position " + startPosition + " and is going to teh y position " + endPosition);             
+        Debug.Log(gameObject.name + "starts at the y position " + startPosition + " and is going to teh y position " + endPosition);
+
+        Invoke("BeginTransition", timeOffSet);
     }
 
     void Update()
@@ -57,9 +61,12 @@ public class TransitionScript : MonoBehaviour
         if(transform.position.y <= 0f && hasTransitioned == false){
             hasTransitioned = true;
             manager.LoadNextScene();
+            Debug.Log("Loaded next scene because transition image is in the middle of the screen");
+            Debug.Log("rtansitionImage transform.position.y = " + transform.position.y + " and hasTransitioned bool = " + hasTransitioned);
+            Debug.Log("hasTransitioned bool = " + hasTransitioned);
         }
         
-        
+        if(isTransitioning){
         transitionTime += Time.deltaTime;
         percentageComplete = transitionTime / transitionDuration;
         float curveMultiplier = curve.Evaluate(percentageComplete);
@@ -79,9 +86,11 @@ public class TransitionScript : MonoBehaviour
             currentPosition = Mathf.Lerp(startPosition, endPosition, curveMultiplier);
         }
 
-        transform.position = new Vector3(0f, currentPosition, 0f);        
-        
-        //transform.position.y = Vector3.Lerp(startPosition, endPosition, )
+          transform.position = new Vector3(0f, currentPosition, 0f);              
+        }
+    }
 
+    private void BeginTransition(){
+        isTransitioning = true;
     }
 }
