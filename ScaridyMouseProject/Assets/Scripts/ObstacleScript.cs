@@ -29,7 +29,7 @@ public class ObstacleScript : MonoBehaviour
     //Variables
     private bool hasPopped = false; //For bounce animation
     private float elapsedPopTime;
-    private Vector3 startScale;
+    private Vector3 startScale;     //StartScale is used for pop and for squeeze
     private Vector3 finalPopScale;
     private Color startColor;
 
@@ -68,6 +68,10 @@ public class ObstacleScript : MonoBehaviour
     [SerializeField]
     private Color redColor;
 
+    private float maxGravitySqueeze;    //Gravity Squeeze (Juice)
+    private float gravitySqueezeIndex;
+    private Vector3 currentGravitySqueeze;
+
     void Start()
     {
         // Debug.Log(gameObject.name + " has been instantiated to the scene."); //Debug what has been instatiated
@@ -86,17 +90,10 @@ public class ObstacleScript : MonoBehaviour
 
         gameObject.tag = "Obstacle";
 
-        //Decide varialbes from obstacleManager
-        largeDuration = oManager.largeShakeDuration;
-        largeMagnitude = oManager.largeShakeMagnitude;
-        largeRoughness = oManager.largeShakeRoughness;
-
-        //Debug.Log("A " + obstacle.name + " has been instatiated in the game"); //Debug for Scriptable Object
         //Decide references to Scriptable Object
         Obstacle.Shape shape = obstacle.shape;
         Obstacle.Sieze sieze = obstacle.sieze;
         Obstacle.Colour colour = obstacle.colour;
-        //Debug.Log("shape = " + obstacle.shape + ", sieze = " + obstacle.sieze + " and colour = " + obstacle.colour); //Debug the references
 
         //Decide shape with scriptable Object
         switch (shape)
@@ -150,6 +147,15 @@ public class ObstacleScript : MonoBehaviour
             case Obstacle.Colour.Red:
                 sprite.color = redColor; break;
         }
+
+        //Define variables by Obstacle Manager
+        largeDuration = oManager.largeShakeDuration;    //Screen Shake Variables
+        largeMagnitude = oManager.largeShakeMagnitude;
+        largeRoughness = oManager.largeShakeRoughness;
+
+        maxGravitySqueeze = oManager.maxGravitySqueeze; //Gravity Squeeze Variables
+        gravitySqueezeIndex = oManager.gravitySqueezeIndex;
+        startScale = transform.localScale;
     }
 
     void Update()
@@ -170,7 +176,7 @@ public class ObstacleScript : MonoBehaviour
                 transform.localScale = Vector3.Lerp(startScale, finalPopScale, scaleMultiplier);
                 sprite.color = Color.Lerp(startColor, Color.white, scaleMultiplier);
             }
-        }
+        }   
     }
 
     public void Pop()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
@@ -185,7 +191,6 @@ public class ObstacleScript : MonoBehaviour
         }
  
         elapsedPopTime = 0;  //Decide current time and scale
-        startScale = transform.localScale;
         startColor = sprite.color;
 
         finalPopScale = startScale + new Vector3(oManager.popScale, oManager.popScale, 0);    //Decide wanted final pop-scale from ObstacelManager

@@ -16,6 +16,9 @@ public class ObstacleManagerScript : MonoBehaviour
     [Range(0f, 2f)]
     public float largeShakeDuration;
 
+    public float maxGravitySqueeze {get; private set;}
+    public float gravitySqueezeIndex {get; private set;}
+
     //List of all possible obstacles named in a systemic way 
     public GameObject GSC;
     

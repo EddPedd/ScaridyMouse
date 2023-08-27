@@ -13,6 +13,7 @@ public class TransitionScript : MonoBehaviour
 
     //Variables
     private bool hasTransitioned = false;
+    [SerializeField]
     private float timeOffSet = 2f;
     private bool isTransitioning = false;
     private float startPosition;

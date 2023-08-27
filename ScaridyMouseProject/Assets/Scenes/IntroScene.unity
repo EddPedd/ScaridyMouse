@@ -510,8 +510,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7401680006547211050, guid: f5b678bdc03e5724b82d30ba8904ffbc, type: 3}
+      propertyPath: timeOffSet
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401680006547211050, guid: f5b678bdc03e5724b82d30ba8904ffbc, type: 3}
       propertyPath: transitionDuration
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7401680006547211051, guid: f5b678bdc03e5724b82d30ba8904ffbc, type: 3}
       propertyPath: m_RootOrder
