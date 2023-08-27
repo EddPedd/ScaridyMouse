@@ -155,12 +155,13 @@ public class ObstacleScript : MonoBehaviour
 
         maxGravitySqueeze = oManager.maxGravitySqueeze; //Gravity Squeeze Variables
         gravitySqueezeIndex = oManager.gravitySqueezeIndex;
-        startScale = transform.localScale;
+
+        startScale = transform.localScale;              //StartScale
     }
 
     void Update()
     {
-        if(hasPopped)
+        if(hasPopped)   //popping juice animation
         {
             elapsedPopTime += Time.deltaTime;    //Calculate time from start
             float percentageComplete = elapsedPopTime / oManager.popTime;  //Calculate how far along the "animation" is
@@ -177,6 +178,16 @@ public class ObstacleScript : MonoBehaviour
                 sprite.color = Color.Lerp(startColor, Color.white, scaleMultiplier);
             }
         }   
+
+        if(rb.velocity.y<0 && !hasPopped){        //Squeeze Juice Effect
+            currentGravitySqueeze.x = startScale.x + (rb.velocity.y * gravitySqueezeIndex);        //Calculate the x-scale for squeeze effect
+            float clampedSqueezeX = Mathf.Clamp(currentGravitySqueeze.x, startScale.x/maxGravitySqueeze, startScale.x );
+
+            currentGravitySqueeze.y = startScale.y - (rb.velocity.y * gravitySqueezeIndex);         //Calculate the y-scale for squeeze effect
+            float clampedSqueezeY = Mathf.Clamp(currentGravitySqueeze.y, startScale.y, startScale.y*maxGravitySqueeze);
+
+            transform.localScale = new Vector3 (clampedSqueezeX, clampedSqueezeY, transform.localScale.z);      //change the x and Y scale according to the calculated squeeze values
+        }
     }
 
     public void Pop()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
@@ -187,13 +198,12 @@ public class ObstacleScript : MonoBehaviour
            case Obstacle.Sieze.Large:
                 CameraShaker.Instance.ShakeOnce(largeMagnitude,largeRoughness,largeDuration,largeDuration);
                 break;
-
         }
  
         elapsedPopTime = 0;  //Decide current time and scale
         startColor = sprite.color;
 
-        finalPopScale = startScale + new Vector3(oManager.popScale, oManager.popScale, 0);    //Decide wanted final pop-scale from ObstacelManager
+        finalPopScale = transform.localScale + new Vector3(oManager.popScale, oManager.popScale, 0);    //Decide wanted final pop-scale from ObstacelManager
         
         rb.velocity = new Vector3(0, 0, 0);
         rb.isKinematic = true;  //Stop the obstacles movement and remove the RigidBody component

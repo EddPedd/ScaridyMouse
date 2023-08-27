@@ -2043,6 +2043,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: maxGravitySqueeze
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: largeShakeDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: gravitySqueezeIndex
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 8811957079033094932, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: menu
       value: 
