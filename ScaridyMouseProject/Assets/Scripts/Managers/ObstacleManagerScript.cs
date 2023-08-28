@@ -4,7 +4,28 @@ using UnityEngine;
 
 public class ObstacleManagerScript : MonoBehaviour
 {
-   //List of all possible obstacles named in a systemic way 
+    //Variables for obstacles
+    public AnimationCurve popCurve;  //bounceAnimation
+    [Range(0f, 2f)]
+    public float popTime = 0.5f;
+    [Range(0f, 1f)]
+    public float popScale = .2f;
+
+    public float largeShakeMagnitude; 
+    public float largeShakeRoughness;
+    [Range(0f, 2f)]
+    public float largeShakeDuration;
+
+    public float maxGravitySqueeze;
+    public float smallGravitySqueezeIndex;
+    public float mediumGravitySqueezeIndex;
+    public float largeGravitySqueezeIndex;
+
+    public float sideForceIndex;
+    public Vector3 leftSideForceAngle = new Vector3(1,1,0);
+    public Vector3 rightSideForceAngle = new Vector3(-1,1,0);
+
+    //List of all possible obstacles named in a systemic way 
     public GameObject GSC;
     
     public GameObject GMC;
@@ -58,16 +79,4 @@ public class ObstacleManagerScript : MonoBehaviour
     public GameObject RMT;
     
     public GameObject RLT;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             isMovingLeft = false;
             isMovingRight = false;
             isBreaking = false;
-            isSkipping = true; //make sure other movement is impossible and we´re counting skipFrames
+            isSkipping = true; //make sure other movement is impossible and weï¿½re counting skipFrames
 
             Skip(); //Add force, play animations/Sounds mm
 
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
             isMovingRight = false;
         }
 
-        //Begin breaking if not moving left, right, player ins't standing still and player isn´t skipping
+        //Begin breaking if not moving left, right, player ins't standing still and player isnï¿½t skipping
         if(!isMovingLeft && !isMovingRight && rb.velocity.x != 0 && !isBreaking && !isSkipping)
         {
             StartBreaking();
@@ -140,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate () 
     {
-
         //Beteende om man bromsar
         if (isBreaking) 
         {
@@ -203,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         isMovingRight = false;
 
         velocityBeforeSpeed = rb.velocity.x; //Calculating velocity before accelerating to make use of during acceleration
-        velocityPerFrame = (-maxMoveVelocity - velocityBeforeSpeed) / framesToMax; //adderar maxMoveVelocity i och med att hastigheten åt vänster är negativ, -- = +
+        velocityPerFrame = (-maxMoveVelocity - velocityBeforeSpeed) / framesToMax; //adderar maxMoveVelocity i och med att hastigheten ï¿½t vï¿½nster ï¿½r negativ, -- = +
 
         isMovingLeft = true;
         Debug.Log("velocityBeforeSpeed = " + velocityBeforeSpeed + " and velocityPerFrame = " + velocityPerFrame);
@@ -269,7 +268,7 @@ public class PlayerMovement : MonoBehaviour
     public void PickUp(int power)   //int for what power-up was picked up
     {
         //spela animationer och ljud
-        //Ändra färg på sprite?
+        //ï¿½ndra fï¿½rg pï¿½ sprite?
 
         if (power == 1)  //1 = Skip Power-Up
         {
