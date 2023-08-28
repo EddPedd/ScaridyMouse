@@ -280,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
     public void GainHealth(int healthGain)
     {
         Debug.Log("Player gained health and sent information to " + healthBarObject.name);
-        currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);                  //OBSOBSOBS!!! minimum health is set to 1 for testing
         healthBar.UpdateHealthBar();
 
         if (healthGain > 0)

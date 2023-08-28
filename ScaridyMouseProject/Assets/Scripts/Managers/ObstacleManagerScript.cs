@@ -22,6 +22,7 @@ public class ObstacleManagerScript : MonoBehaviour
     public float largeGravitySqueezeIndex;
 
     public float sideForceIndex;
+    public float hightForceIndex;
     public Vector3 leftSideForceAngle = new Vector3(1,1,0);
     public Vector3 rightSideForceAngle = new Vector3(-1,1,0);
 

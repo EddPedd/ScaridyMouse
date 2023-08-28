@@ -116,21 +116,21 @@ public class ObstacleScript : MonoBehaviour
         {
             case Obstacle.Sieze.Small:
                 transform.localScale = new Vector3(smallScale, smallScale,1f);
-                rb.mass = smallMass;
+                rb.gravityScale = smallMass;
                 sprite.sortingOrder = smallOrderInLayer;
                 gravitySqueezeIndex = oManager.smallGravitySqueezeIndex;
                 break;
 
             case Obstacle.Sieze.Medium:
                 transform.localScale = new Vector3(mediumScale, mediumScale, 1f);
-                rb.mass = mediumMass;
+                rb.gravityScale = mediumMass;
                 sprite.sortingOrder = mediumOrderInLayer;
                gravitySqueezeIndex = oManager.mediumGravitySqueezeIndex;
                 break;
 
             case Obstacle.Sieze.Large:
                 transform.localScale = new Vector3(largeScale, largeScale, 1f);
-                rb.mass = largeMass;
+                rb.gravityScale = largeMass;
                 sprite.sortingOrder = largeOrderInLayer;
                 gravitySqueezeIndex = oManager.largeGravitySqueezeIndex;
                 break;
@@ -150,14 +150,13 @@ public class ObstacleScript : MonoBehaviour
         }
 
         if (transform.position.y <= 11 && transform.position.x <= -17){       //If spawn at left side of screen
-            float finalForceMagnitude = (transform.position.y + 8)+ oManager.sideForceIndex;
+            float finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
             Vector3 finalForceDirection = oManager.leftSideForceAngle.normalized; 
             
             rb.AddForce(finalForceDirection*finalForceMagnitude, ForceMode2D.Impulse);
         }
-
-        if (transform.position.y <= 11 && transform.position.x <= 17){        //If Spawn at right side of screen
-            float finalForceMagnitude = (transform.position.y + 8)+ oManager.sideForceIndex;
+        else if (transform.position.y <= 11 && transform.position.x >= 17){        //If Spawn at right side of screen
+            float finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
             Vector3 finalForceDirection = oManager.rightSideForceAngle.normalized; 
             
             rb.AddForce(finalForceDirection*finalForceMagnitude, ForceMode2D.Impulse);

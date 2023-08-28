@@ -190,8 +190,9 @@ public class SpawnerScript : MonoBehaviour
         if (spawnPosition == 2) //Left Spawn
         {
             Debug.Log("spawnPosition = leftSpawn");
-            float randomHeight = Random.Range(5, 11);
-            Vector3 finalHeight = new Vector3(leftSpawn.position.x, leftSpawn.position.y + randomHeight, 0f);
+            int randomHeight = Random.Range(5, 18);
+            float randomHeightFloat = (float)randomHeight; 
+            Vector3 finalHeight = new Vector3(leftSpawn.position.x, leftSpawn.position.y + randomHeightFloat, 0f);
 
             Instantiate(obstacleToSpawn, finalHeight, leftSpawn.rotation);
         }

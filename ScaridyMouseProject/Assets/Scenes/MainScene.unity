@@ -2044,6 +2044,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: sideForceIndex
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: hightForceIndex
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: maxGravitySqueeze
       value: 15
       objectReference: {fileID: 0}
@@ -2054,6 +2062,14 @@ PrefabInstance:
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: gravitySqueezeIndex
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: leftSideForceAngle.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
+      propertyPath: rightSideForceAngle.x
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: largeGravitySqueezeIndex
