@@ -118,20 +118,21 @@ public class ObstacleScript : MonoBehaviour
                 transform.localScale = new Vector3(smallScale, smallScale,1f);
                 rb.mass = smallMass;
                 sprite.sortingOrder = smallOrderInLayer;
+                gravitySqueezeIndex = oManager.smallGravitySqueezeIndex;
                 break;
 
             case Obstacle.Sieze.Medium:
                 transform.localScale = new Vector3(mediumScale, mediumScale, 1f);
                 rb.mass = mediumMass;
                 sprite.sortingOrder = mediumOrderInLayer;
-
+               gravitySqueezeIndex = oManager.mediumGravitySqueezeIndex;
                 break;
 
             case Obstacle.Sieze.Large:
                 transform.localScale = new Vector3(largeScale, largeScale, 1f);
                 rb.mass = largeMass;
                 sprite.sortingOrder = largeOrderInLayer;
-
+                gravitySqueezeIndex = oManager.largeGravitySqueezeIndex;
                 break;
         }
 
@@ -148,13 +149,25 @@ public class ObstacleScript : MonoBehaviour
                 sprite.color = redColor; break;
         }
 
+        if (transform.position.y <= 11 && transform.position.x <= -17){       //If spawn at left side of screen
+            float finalForceMagnitude = (transform.position.y + 8)+ oManager.sideForceIndex;
+            Vector3 finalForceDirection = oManager.leftSideForceAngle.normalized; 
+            
+            rb.AddForce(finalForceDirection*finalForceMagnitude, ForceMode2D.Impulse);
+        }
+
+        if (transform.position.y <= 11 && transform.position.x <= 17){        //If Spawn at right side of screen
+            float finalForceMagnitude = (transform.position.y + 8)+ oManager.sideForceIndex;
+            Vector3 finalForceDirection = oManager.rightSideForceAngle.normalized; 
+            
+            rb.AddForce(finalForceDirection*finalForceMagnitude, ForceMode2D.Impulse);
+        }
         //Define variables by Obstacle Manager
         largeDuration = oManager.largeShakeDuration;    //Screen Shake Variables
         largeMagnitude = oManager.largeShakeMagnitude;
         largeRoughness = oManager.largeShakeRoughness;
 
         maxGravitySqueeze = oManager.maxGravitySqueeze; //Gravity Squeeze Variables
-        gravitySqueezeIndex = oManager.gravitySqueezeIndex;
 
         startScale = transform.localScale;              //StartScale
     }

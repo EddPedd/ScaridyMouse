@@ -54,9 +54,9 @@ public class SpawnerScript : MonoBehaviour
         int testSieze = Random.Range(1, 4);
         Vector3 testPlayerPosition = new Vector3(testShape, testSieze, testColour);
 
-        int upperSpawnInt = 1;
+        int spawnInt = Random.Range(1,4);
 
-        SpawnObstacle(testShape, testColour, testSieze, upperSpawnInt, testPlayerPosition);
+        SpawnObstacle(testShape, testColour, testSieze, spawnInt, testPlayerPosition);
     }
 
     public void SpawnObstacle(int shape, int colour, int sieze, int spawnPosition, Vector3 playerPosition)
@@ -178,11 +178,9 @@ public class SpawnerScript : MonoBehaviour
             obstacleToSpawn = oManager.BLT;
         }
 
-        //Välj plats för 
+        //Vï¿½lj plats fï¿½r 
         if (spawnPosition == 1)//Upper spawn
         {
-            Debug.Log("spawnPosition = upperSpawn");
-
             float randomOffSet = Random.Range(-7, 7);
             Vector3 finalSpawn = new Vector3(upperSpawn.position.x + randomOffSet, upperSpawn.position.y, 0f);
 

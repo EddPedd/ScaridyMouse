@@ -17,7 +17,13 @@ public class ObstacleManagerScript : MonoBehaviour
     public float largeShakeDuration;
 
     public float maxGravitySqueeze;
-    public float gravitySqueezeIndex;
+    public float smallGravitySqueezeIndex;
+    public float mediumGravitySqueezeIndex;
+    public float largeGravitySqueezeIndex;
+
+    public float sideForceIndex;
+    public Vector3 leftSideForceAngle = new Vector3(1,1,0);
+    public Vector3 rightSideForceAngle = new Vector3(-1,1,0);
 
     //List of all possible obstacles named in a systemic way 
     public GameObject GSC;
