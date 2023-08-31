@@ -97,7 +97,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -150,52 +150,10 @@ MonoBehaviour:
   sprite: {fileID: 0}
   rb: {fileID: 0}
   manager: {fileID: 0}
+  oManager: {fileID: 0}
   squareSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   triangleSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   circleSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  bounceTime: 0.5
-  bounceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.008333599
-      value: 0.99881864
-      inSlope: -0.69231033
-      outSlope: -0.69231033
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.16217785
-    - serializedVersion: 3
-      time: 0.29144737
-      value: 0.89154565
-      inSlope: 2.369457
-      outSlope: 2.369457
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.6308137
-      outWeight: 0.09946983
-    - serializedVersion: 3
-      time: 0.6510234
-      value: 1.1898627
-      inSlope: -0.48617613
-      outSlope: -0.48617613
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.29464978
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.54405576
-      outSlope: -0.54405576
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   smallScale: 1.5
   mediumScale: 3
   largeScale: 6

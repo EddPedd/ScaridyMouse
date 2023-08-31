@@ -11,6 +11,18 @@ public class ObstacleManagerScript : MonoBehaviour
     [Range(0f, 1f)]
     public float popScale = .2f;
 
+    public AnimationCurve bounceCurveX;
+    public AnimationCurve bounceCurveY;
+    [Range(0f, 2f)]
+    public float bounceTime = 0.5f;
+    public float straightForceIndex;
+    public float bounceForceSiezeIndex;
+
+    public float sideForceIndex;
+    public float hightForceIndex;
+    public Vector3 leftSideForceAngle = new Vector3(1,1,0);
+    public Vector3 rightSideForceAngle = new Vector3(-1,1,0);
+
     public float largeShakeMagnitude; 
     public float largeShakeRoughness;
     [Range(0f, 2f)]
@@ -21,10 +33,11 @@ public class ObstacleManagerScript : MonoBehaviour
     public float mediumGravitySqueezeIndex;
     public float largeGravitySqueezeIndex;
 
-    public float sideForceIndex;
-    public float hightForceIndex;
-    public Vector3 leftSideForceAngle = new Vector3(1,1,0);
-    public Vector3 rightSideForceAngle = new Vector3(-1,1,0);
+
+
+    public int greenBounces = 0;
+    public int blueBounces = 1;
+    public int redBounces = 2;
 
     //List of all possible obstacles named in a systemic way 
     public GameObject GSC;

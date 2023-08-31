@@ -27,9 +27,17 @@ public class ObstacleScript : MonoBehaviour
     private Sprite circleSprite;
 
     //Variables
-    private bool hasPopped = false; //For bounce animation
-    private float elapsedPopTime;
     private Vector3 startScale;     //StartScale is used for pop and for squeeze
+
+    private int bounces;    //For bounces is defined in the oManager
+    private bool isBouncing  = false;
+    private float elapsedBounceTime;
+    private Vector3 finalForceDirection;
+    private float finalForceMagnitude;
+
+
+    private bool hasPopped = false; //For PoP animation
+    private float elapsedPopTime;   //total PoP time is defined in the oManager
     private Vector3 finalPopScale;
     private Color startColor;
 
@@ -81,6 +89,8 @@ public class ObstacleScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         colliderCollider = GetComponent<Collider2D>();
 
+        colliderCollider.isTrigger = true;
+        
         GameObject gameManager = GameObject.FindWithTag("Manager");
         if (gameManager != null)
         {
@@ -140,27 +150,36 @@ public class ObstacleScript : MonoBehaviour
         switch (colour)
         {
             case Obstacle.Colour.Green:
-                sprite.color = greenColor; break;
+                sprite.color = greenColor; 
+                bounces = oManager.greenBounces; break;
 
             case Obstacle.Colour.Blue:
-                sprite.color = blueColor; break;
+                sprite.color = blueColor; 
+                bounces = oManager.blueBounces; break;
 
             case Obstacle.Colour.Red:
-                sprite.color = redColor; break;
+                sprite.color = redColor; 
+                bounces = oManager.redBounces; break;
+
         }
 
         if (transform.position.y <= 11 && transform.position.x <= -17){       //If spawn at left side of screen
-            float finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
-            Vector3 finalForceDirection = oManager.leftSideForceAngle.normalized; 
+            finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
+            finalForceDirection = oManager.leftSideForceAngle.normalized; 
             
             rb.AddForce(finalForceDirection*finalForceMagnitude, ForceMode2D.Impulse);
         }
         else if (transform.position.y <= 11 && transform.position.x >= 17){        //If Spawn at right side of screen
-            float finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
-            Vector3 finalForceDirection = oManager.rightSideForceAngle.normalized; 
+            finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
+            finalForceDirection = oManager.rightSideForceAngle.normalized; 
             
             rb.AddForce(finalForceDirection*finalForceMagnitude, ForceMode2D.Impulse);
         }
+        
+        finalForceMagnitude =oManager.straightForceIndex * rb.gravityScale * oManager.bounceForceSiezeIndex;
+        finalForceDirection =Vector3.up; 
+        
+
         //Define variables by Obstacle Manager
         largeDuration = oManager.largeShakeDuration;    //Screen Shake Variables
         largeMagnitude = oManager.largeShakeMagnitude;
@@ -191,7 +210,30 @@ public class ObstacleScript : MonoBehaviour
             }
         }   
 
-        if(rb.velocity.y<0 && !hasPopped){        //Squeeze Juice Effect
+        if(isBouncing)
+        {
+            elapsedBounceTime += Time.deltaTime;    //Calculate time from start
+            float percentageComplete = elapsedBounceTime / oManager.bounceTime;  //Calculate how far along the "animation" is
+
+            if (percentageComplete >= 1)    //If the pop is completed - destroy gameObject
+            {
+                isBouncing = false;
+                elapsedBounceTime = 0;
+                return;
+            }
+            else
+            {
+                Vector3 preBounceScale = transform.localScale;
+                float scaleMultiplierX = oManager.bounceCurveX.Evaluate(percentageComplete);    //else calculate the curve and change the scale for a pop effect
+                float scaleMultiplierY = oManager.bounceCurveY.Evaluate(percentageComplete);
+                float lerpedScaleX = Mathf.Lerp(preBounceScale.x, startScale.x, scaleMultiplierX);
+                float lerpedScaleY = Mathf.Lerp(preBounceScale.y, startScale.y, scaleMultiplierY);
+
+                transform.localScale = new Vector3(lerpedScaleX, lerpedScaleY, transform.localScale.z );
+            }
+        }
+
+        if(rb.velocity.y<0 && !hasPopped && !isBouncing){        //Squeeze Juice Effect
             currentGravitySqueeze.x = startScale.x + (rb.velocity.y * gravitySqueezeIndex);        //Calculate the x-scale for squeeze effect
             float clampedSqueezeX = Mathf.Clamp(currentGravitySqueeze.x, startScale.x/maxGravitySqueeze, startScale.x );
 
@@ -202,7 +244,22 @@ public class ObstacleScript : MonoBehaviour
         }
     }
 
-    public void Pop()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
+    void OnTriggerEnter2D(Collider2D collider){ 
+        if(collider.tag == "Floor")
+        {
+            if(bounces == 0){
+                Pop();
+            }
+            else
+            {
+                Bounce();
+                bounces --;
+            }
+        }
+ 
+    }
+    
+    private void Pop()    //Method to trigger on bounce with floor (triggered by floor as of writing this)
     {
         AudioManagerScript.instance.Play("ObstacleDestroy");    //Play sound
 
@@ -223,6 +280,29 @@ public class ObstacleScript : MonoBehaviour
         colliderCollider.enabled = false;
 
         hasPopped = true;
+    }
+
+    private void Bounce(){
+        
+        elapsedBounceTime = 0;
+        isBouncing = true;
+        
+        AudioManagerScript.instance.Play("ObstacleDestroy");    //Play sound
+
+        switch (obstacle.sieze){
+           case Obstacle.Sieze.Large:
+                CameraShaker.Instance.ShakeOnce(largeMagnitude,largeRoughness,largeDuration,largeDuration);
+                break;
+        }
+
+        ApplyForce();
+        
+    }
+
+    private void ApplyForce()
+    {
+        Vector3 bounceForce = finalForceDirection*finalForceMagnitude;
+        rb.AddForce(bounceForce, ForceMode2D.Impulse);
     }
 
 }

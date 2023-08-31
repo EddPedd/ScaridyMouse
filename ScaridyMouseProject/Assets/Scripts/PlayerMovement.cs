@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private GameManagerScript manager;
     private GameObject healthBarObject;
     public HealthBarScript healthBar;
-
+    
     //Movement variables
     [Range(0,50)]
     public float maxMoveVelocity;
@@ -50,6 +50,10 @@ public class PlayerMovement : MonoBehaviour
     private int maxHealth = 2;
     public int currentHealth;
 
+    //Other Variables
+    [SerializeField]
+    private bool isTesting;
+
 
     void Start()
     {
@@ -72,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //"T" for test
-        if (Input.GetKeyDown("t"))
+        if (Input.GetKeyDown("t") && isTesting)
         {
             canSkip = true;
         }
@@ -280,7 +284,16 @@ public class PlayerMovement : MonoBehaviour
     public void GainHealth(int healthGain)
     {
         Debug.Log("Player gained health and sent information to " + healthBarObject.name);
-        currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);                  //OBSOBSOBS!!! minimum health is set to 1 for testing
+        
+        if(!isTesting)   //if the game is playing for real
+        {
+            currentHealth = Mathf.Clamp(currentHealth + healthGain, 0, maxHealth);
+        }
+        else            //if only testing the game
+        {
+        currentHealth = Mathf.Clamp(currentHealth + healthGain, 1, maxHealth);   
+        }
+        
         healthBar.UpdateHealthBar();
 
         if (healthGain > 0)
