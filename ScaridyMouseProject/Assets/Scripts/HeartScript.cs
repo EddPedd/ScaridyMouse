@@ -14,6 +14,7 @@ public class HeartScript : MonoBehaviour
         playerObject = GameObject.FindWithTag("Player");
         player = playerObject.GetComponent<PlayerMovement>();
         Debug.Log(playerObject.name);
+        gameObject.layer = 9;       //9 for the index of the interactable layer
     }
 
     void OnTriggerEnter2D(Collider2D collider)

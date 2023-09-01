@@ -66,7 +66,7 @@ public class SpawnerScript : MonoBehaviour
         finalObstacle += 100 * colour; //100 = Green, 200 = Blue, 300 = Red
         finalObstacle += 10 * sieze;   //10 = Small, 20 = Medium, 30 = Large
         finalObstacle += 1 * shape;    //1 = Circle, 2 = Square, 3 = Triangle
-        Debug.Log(finalObstacle);
+        //Debug.Log(finalObstacle);
 
         //27 if-statements; one for each possible Obstacle
         if(finalObstacle == 111)

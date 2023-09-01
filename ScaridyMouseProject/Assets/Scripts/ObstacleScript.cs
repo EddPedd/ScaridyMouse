@@ -89,7 +89,7 @@ public class ObstacleScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         colliderCollider = GetComponent<Collider2D>();
 
-        colliderCollider.isTrigger = true;
+        colliderCollider.isTrigger = false;        
         
         GameObject gameManager = GameObject.FindWithTag("Manager");
         if (gameManager != null)
@@ -99,6 +99,8 @@ public class ObstacleScript : MonoBehaviour
         }
 
         gameObject.tag = "Obstacle";
+        gameObject.layer = 9;       //9 for the index of the Interactable layer
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; //freeze rotation
 
         //Decide references to Scriptable Object
         Obstacle.Shape shape = obstacle.shape;
@@ -162,6 +164,7 @@ public class ObstacleScript : MonoBehaviour
                 bounces = oManager.redBounces; break;
 
         }
+        Debug.Log("original bounces of a " + colour + " = " + bounces);
 
         if (transform.position.y <= 11 && transform.position.x <= -17){       //If spawn at left side of screen
             finalForceMagnitude = (transform.position.y + 8) * ((oManager.hightForceIndex* oManager.sideForceIndex)/(transform.position.y+8));
@@ -244,14 +247,20 @@ public class ObstacleScript : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider){ 
-        if(collider.tag == "Floor")
+    void OnCollisionEnter2D(Collision2D collision){ 
+        
+        if(collision.collider.tag == "Player")
         {
-            if(bounces == 0){
+            Pop();
+        }
+        else if(collision.collider.tag == "Floor")
+        {
+            if(bounces <= 0){
                 Pop();
             }
             else
             {
+                Debug.Log("Bounced agianst " + collision.collider.tag + ". bounces = " + bounces);
                 Bounce();
                 bounces --;
             }
@@ -296,7 +305,6 @@ public class ObstacleScript : MonoBehaviour
         }
 
         ApplyForce();
-        
     }
 
     private void ApplyForce()

@@ -1875,8 +1875,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5598136046808012896, guid: ebf19c9cdedd76e48a5b1291042f4214, type: 3}
+      propertyPath: m_Size.y
+      value: 1.6458422
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598136046808012896, guid: ebf19c9cdedd76e48a5b1291042f4214, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598136046808012896, guid: ebf19c9cdedd76e48a5b1291042f4214, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.11105317
       objectReference: {fileID: 0}
     - target: {fileID: 7671131098341376303, guid: ebf19c9cdedd76e48a5b1291042f4214, type: 3}
       propertyPath: m_BodyType
@@ -1998,7 +2006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: straightForceIndex
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: gravitySqueezeIndex
@@ -2010,7 +2018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: bounceForceSiezeIndex
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811957079033094930, guid: 8c1b9b486cf62d44c8fbf95bed7d047b, type: 3}
       propertyPath: rightSideForceAngle.x

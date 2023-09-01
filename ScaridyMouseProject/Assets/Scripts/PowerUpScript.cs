@@ -10,11 +10,22 @@ public class PowerUpScript : MonoBehaviour
     private GameObject playerPlayer;
 
     //Variables
+    private float currenFallTime;
+    [SerializeField]
+    [Range(0,10)]
+    private float totalFallTime;
+    private Vector3 currentPosition;
+    private Vector3 startPosition;
+    private Vector3 groundPosition = new Vector3 (0,-9,0);
+
+
     [SerializeField]
     private int powerInt;
     [SerializeField]
     private float lifeTime = 6;
     private float timeSpentLive;
+
+
 
     void Start()
     {
@@ -25,7 +36,12 @@ public class PowerUpScript : MonoBehaviour
         {
             powerInt =1;
         }
+
+        gameObject.layer = 9;   //9 for layerindex of interactables
         //Continue with else-if statements for each type of power-up
+
+        startPosition = transform.position;
+        currenFallTime = 0;
     }
 
     void Update()
@@ -36,7 +52,13 @@ public class PowerUpScript : MonoBehaviour
         {
             GameObject.Destroy(gameObject);
         }
-        //Lägg till förändring av animationer 
+        //Lï¿½gg till fï¿½rï¿½ndring av animationer 
+
+        float t = currenFallTime/totalFallTime;     //lerp position to for falling effect
+        t = Mathf.Clamp01(t);
+        float currentPositionY = Mathf.Lerp(startPosition.y, groundPosition.y, t);
+        currentPosition.y = currentPositionY;
+        transform.position = currentPosition;
     }
 
     void OnTriggerEnter2D(Collider2D collider) 
