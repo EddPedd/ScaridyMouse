@@ -10,13 +10,14 @@ public class PowerUpScript : MonoBehaviour
     private GameObject playerPlayer;
 
     //Variables
-    private float currenFallTime;
     [SerializeField]
     [Range(0,10)]
     private float totalFallTime;
     private Vector3 currentPosition;
     private Vector3 startPosition;
+    [SerializeField]
     private Vector3 groundPosition = new Vector3 (0,-9,0);
+    private float ground = -9;
 
 
     [SerializeField]
@@ -41,7 +42,9 @@ public class PowerUpScript : MonoBehaviour
         //Continue with else-if statements for each type of power-up
 
         startPosition = transform.position;
-        currenFallTime = 0;
+        groundPosition = new Vector3(startPosition.x, ground, startPosition.z);
+
+        Debug.Log("PowerUp start position = " + startPosition + "groundPosition = " + groundPosition);
     }
 
     void Update()
@@ -52,13 +55,16 @@ public class PowerUpScript : MonoBehaviour
         {
             GameObject.Destroy(gameObject);
         }
-        //L�gg till f�r�ndring av animationer 
 
-        float t = currenFallTime/totalFallTime;     //lerp position to for falling effect
-        t = Mathf.Clamp01(t);
-        float currentPositionY = Mathf.Lerp(startPosition.y, groundPosition.y, t);
-        currentPosition.y = currentPositionY;
-        transform.position = currentPosition;
+        float t = timeSpentLive/totalFallTime;     //lerp position to for falling effect
+        //t = Mathf.Clamp01(t);
+        Debug.Log("powerUp t = " + t);
+        currentPosition = Vector3.Lerp(startPosition, groundPosition, t);
+        //float currentPositionY = Mathf.Lerp(startPosition.y, groundPosition.y, t);
+        //currentPosition.y = currentPositionY;
+        if(transform.position != groundPosition){
+            transform.position = currentPosition;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider) 
